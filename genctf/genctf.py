@@ -15,7 +15,7 @@ pre = ''
 pre += '**Category:** \n'
 pre += '**Points:** \n'
 pre += '**Solves:** \n'
-pre += '**Description:** \n\n'
+pre += '**Description:**\n\n'
 post = """
 ## Write-up
 
@@ -23,7 +23,8 @@ post = """
 
 ## Other write-ups and resources
 
-* none yet"""
+* none yet
+"""
 roothead = '# ' + ctfname + ' CTF write-ups'
 rootdir = open(ctfrootdir+'/README.md', 'w')
 rootpre = roothead + '\n'
@@ -48,7 +49,7 @@ for root, dirs, files in os.walk(ctfrootdir):
 		if file.endswith(infofile):
 			ok = os.path.split(root)
 			readme = head + ok[len(ok)-1] + "\n\n" + pre
-			for line in open(os.path.join(root, file),'rw').readlines():
+			for line in open(os.path.join(root, file), 'rw').readlines():
 				readme += "> " + line
 			readme += post
 			ok = root.split('/')
