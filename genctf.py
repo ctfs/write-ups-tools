@@ -1,22 +1,19 @@
-import os, sys
+import argparse, os, sys
 
-if len(sys.argv) != 4:
-	sys.stderr.write('Usage: python genctf.py example-ctf-2015/ info \'Example CTF\'')
-	sys.exit(4)
+parser = argparse.ArgumentParser()
+parser.add_argument('ctfdir', type=str, help='Directory containing all tasks and descriptions, e.g. example-ctf-2015/')
+parser.add_argument('info', type=str, help='Default info file name containing the task description, e.g. info')
+parser.add_argument('ctfname', type=str, help='Name of the CTF')
+args = parser.parse_args()
 
-ctfrootdir = sys.argv[1]
-infofile = sys.argv[2]
-ctfname = sys.argv[3]
-
-#print ctfrootdir + "/task/" + infofile
-
-head = '# ' + ctfname + ' 2015: '
+head = '# ' + args.ctfname + ' 2015: '
 pre = ''
 pre += '**Category:** \n'
 pre += '**Points:** \n'
 pre += '**Solves:** \n'
 pre += '**Description:**\n\n'
 post = """
+
 ## Write-up
 
 (TODO)
@@ -25,8 +22,8 @@ post = """
 
 * none yet
 """
-roothead = '# ' + ctfname + ' CTF write-ups'
-rootdir = open(ctfrootdir+'/README.md', 'w')
+roothead = '# ' + args.ctfname + ' CTF write-ups'
+rootdir = open(args.ctfdir+'/README.md', 'w')
 rootpre = roothead + '\n'
 rootpre += """
 * <TODO>
@@ -44,9 +41,9 @@ rootpre += """
 """
 rootdir.write(rootpre)
 
-for root, dirs, files in os.walk(ctfrootdir):
+for root, dirs, files in os.walk(args.ctfdir):
 	for file in files:
-		if file.endswith(infofile):
+		if file.endswith(args.info):
 			ok = os.path.split(root)
 			readme = head + ok[len(ok)-1] + "\n\n" + pre
 			for line in open(os.path.join(root, file), 'rw').readlines():
