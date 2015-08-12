@@ -1,7 +1,7 @@
 import argparse, requests, sys, BeautifulSoup
 
 parser = argparse.ArgumentParser()
-parser.add_argument('ctftimeurl', type=str, help='Ctftime Url of the CTF')
+parser.add_argument('ctftimeurl', type=str, help='Ctftime Url of the CTF, e.g. https://ctftime.org/event/207')
 args = parser.parse_args()
 r = requests.get(args.ctftimeurl)
 soup = BeautifulSoup.BeautifulSoup(r.text.replace('\n',''))
