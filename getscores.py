@@ -1,11 +1,10 @@
-import sys, BeautifulSoup
+import argparse, requests, sys, BeautifulSoup
 
-# TODO: Use requests instead of copying the scoreboard table with the console... :)
-soup = ''
-with open('./scoreboard','r') as myfile:
-	soup = myfile.read().replace('\n', '')
-
-soup = BeautifulSoup.BeautifulSoup(soup)
+parser = argparse.ArgumentParser()
+parser.add_argument('ctftimeurl', type=str, help='Ctftime Url of the CTF')
+args = parser.parse_args()
+r = requests.get(args.ctftimeurl)
+soup = BeautifulSoup.BeautifulSoup(r.text.replace('\n',''))
 scoreboard = ''
 for tr in soup.findAll('tr'):
 	tds = tr.findAll('td')
