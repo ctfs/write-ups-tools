@@ -54,23 +54,34 @@ rootdir = open(args.ctfdir+'/README.md', 'w')
 rootdir.write(rootpre)
 
 # os.walk returns: dirpath (args.ctfdir), dirnames, filenames
-# For each challenge directory, create a README.md
+# For each challenge directory, create a README.md and add files >10Mb to .gitignore
 for root, dirs, files in os.walk(args.ctfdir):
-	for file in files:
-		if file.endswith(args.info):
+	for f in files:
+		# Case: info file containing the descriptions.
+		if f == args.info:
+			# Get the filename and directory into one set
 			ok = os.path.split(root)
+			# Create the header of the readme with the directory name as the challenge name
 			readme = head + ok[len(ok)-1] + "\n\n" + pre
-			for line in open(os.path.join(root, file), 'rw').readlines():
+
+			# Add the content of the info file to the readme and append the post
+			for line in open(os.path.join(root, f), 'rw').readlines():
 				readme += "> " + line
 			readme += post
+
+			# Get the ctf directory name, challenge type and challenge name in an array
 			ok = root.split('/')
+
+			# Add the task reference to the root README.md
 			taskref = ''
 			for x in range(1,len(ok)-1): taskref += ok[x] + "/"
 			taskref += ok[len(ok)-1]
 			rootdir.write('\n'+'* ['+taskref+']('+taskref+')')
-			#print taskref
-			#print root + '/' + 'README.md'
-			#print readme
+
+			# Create a README.md for the challenge
 			with open(root + '/' + 'README.md', 'w') as f:
 				f.write(readme)
 				f.close()
+#		else:
+#			print 'OTHER FILE:',f
+		# Case: files required for the challenge
