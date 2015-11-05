@@ -53,6 +53,9 @@ rootpre += """
 rootdir = open(args.ctfdir+'/README.md', 'w')
 rootdir.write(rootpre)
 
+# Create the .gitignore
+gitignore = open(args.ctfdir+'/.gitignore','w')
+
 # os.walk returns: dirpath (args.ctfdir), dirnames, filenames
 # For each challenge directory, create a README.md and add files >10Mb to .gitignore
 for root, dirs, files in os.walk(args.ctfdir):
@@ -82,6 +85,12 @@ for root, dirs, files in os.walk(args.ctfdir):
 			with open(root + '/' + 'README.md', 'w') as f:
 				f.write(readme)
 				f.close()
-#		else:
-#			print 'OTHER FILE:',f
 		# Case: files required for the challenge
+		else:
+			# TODO: Rename ok, move to beginning of for loop. Refactor code...
+			ok = root.split('/')
+			fname = ''
+			for x in range(1,len(ok)-1): fname += ok[x] + "/"
+			fname += ok[len(ok)-1] + '/' + f
+			if os.stat(os.path.join(root,f)).st_size > 10485760:
+				gitignore.write(fname)
