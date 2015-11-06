@@ -59,26 +59,27 @@ gitignore = open(args.ctfdir+'/.gitignore','w')
 # os.walk returns: dirpath (args.ctfdir), dirnames, filenames
 # For each challenge directory, create a README.md and add files >10Mb to .gitignore
 for root, dirs, files in os.walk(args.ctfdir):
+	# Get the ctf directory name, challenge type and challenge name in an array
+	rootarr = root.split('/')
+	print rootarr
 	for f in files:
 		# Case: info file containing the descriptions.
 		if f == args.info:
 			# Get the filename and directory into one set
-			ok = os.path.split(root)
 			# Create the header of the readme with the directory name as the challenge name
-			readme = head + ok[len(ok)-1] + "\n\n" + pre
+			readme = head + rootarr[len(rootarr)-1] + "\n\n" + pre
 
 			# Add the content of the info file to the readme and append the post
 			for line in open(os.path.join(root, f), 'rw').readlines():
 				readme += "> " + line
+				if line not in ('\n','\r\n'):
+					readme+='> \n'
 			readme += post
-
-			# Get the ctf directory name, challenge type and challenge name in an array
-			ok = root.split('/')
 
 			# Add the task reference to the root README.md
 			taskref = ''
-			for x in range(1,len(ok)-1): taskref += ok[x] + "/"
-			taskref += ok[len(ok)-1]
+			for x in range(1,len(rootarr)-1): taskref += rootarr[x] + "/"
+			taskref += rootarr[len(rootarr)-1]
 			rootdir.write('\n'+'* ['+taskref+']('+taskref+')')
 
 			# Create a README.md for the challenge
@@ -87,10 +88,8 @@ for root, dirs, files in os.walk(args.ctfdir):
 				f.close()
 		# Case: files required for the challenge
 		else:
-			# TODO: Rename ok, move to beginning of for loop. Refactor code...
-			ok = root.split('/')
 			fname = ''
-			for x in range(1,len(ok)-1): fname += ok[x] + "/"
-			fname += ok[len(ok)-1] + '/' + f
+			for x in range(1,len(rootarr)-1): fname += rootarr[x] + "/"
+			fname += rootarr[len(rootarr)-1] + '/' + f
 			if os.stat(os.path.join(root,f)).st_size > 10485760:
 				gitignore.write(fname)
