@@ -61,7 +61,12 @@ gitignore = open(args.ctfdir+'/.gitignore','w')
 for root, dirs, files in os.walk(args.ctfdir):
 	# Get the ctf directory name, challenge type and challenge name in an array
 	rootarr = root.split('/')
-	print rootarr
+
+	# Reference to the task inside the root CTF directory, e.g. web/task1
+	taskref = ''
+	for x in range(1,len(rootarr)-1): taskref += rootarr[x] + "/"
+	taskref += rootarr[len(rootarr)-1]
+
 	for f in files:
 		# Case: info file containing the descriptions.
 		if f == args.info:
@@ -77,9 +82,6 @@ for root, dirs, files in os.walk(args.ctfdir):
 			readme += post
 
 			# Add the task reference to the root README.md
-			taskref = ''
-			for x in range(1,len(rootarr)-1): taskref += rootarr[x] + "/"
-			taskref += rootarr[len(rootarr)-1]
 			rootdir.write('\n'+'* ['+taskref+']('+taskref+')')
 
 			# Create a README.md for the challenge
@@ -88,8 +90,7 @@ for root, dirs, files in os.walk(args.ctfdir):
 				f.close()
 		# Case: files required for the challenge
 		else:
-			fname = ''
-			for x in range(1,len(rootarr)-1): fname += rootarr[x] + "/"
-			fname += rootarr[len(rootarr)-1] + '/' + f
+			# Write taskref + / + filename (e.g. web/task1/bigfile.iso) to ctf-2015/.gitignore, if its size is >10MB
+			fname = taskref + '/' + f
 			if os.stat(os.path.join(root,f)).st_size > 10485760:
 				gitignore.write(fname)
