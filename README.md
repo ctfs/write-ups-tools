@@ -1,6 +1,6 @@
 # Generate a CTF directory skeleton
 
-Use this tool to generate a CTF write-up skeleton.
+Use `genctf.py` to generate a CTF write-up skeleton.
 
 * Create an empty directory for the CTF, ending with the current year, e.g. `example-ctf-2015/`
 * Create an empty directory in this new CTF directory for each task category, e.g. `mkdir crypto web misc trivia`
@@ -11,3 +11,5 @@ Use this tool to generate a CTF write-up skeleton.
 * Tell git to ignore all files that are bigger than 10MBytes with `cd example-ctf-2015; find . -size +10M >> .gitignore`
 * Edit each `README.md` to fill in missing information (e.g. Authors, references and solves)
 * Move the CTF directory to the `write-ups-$YEAR` repo, making sure that it does not already exist, and make a pull request
+
+Use `getscores.py` to generate the scoreboard for a CTF by providing a ctftime link.
