@@ -1,4 +1,4 @@
-import argparse, os, sys
+import argparse, os, string, sys
 
 # Parse all parameters
 parser = argparse.ArgumentParser()
@@ -70,12 +70,22 @@ for root, dirs, files in os.walk(args.ctfdir):
 	for f in files:
 		# Case: info file containing the descriptions.
 		if f == args.info:
-			# Get the filename and directory into one set
+			# Get all files in the directory
+			farr = []
+			for fr,fd,ff in os.walk(root):
+				for fff in ff:
+					if fff in ('info','README.md'): continue
+					farr.append(fff)
+
 			# Create the header of the readme with the directory name as the challenge name
 			readme = head + rootarr[len(rootarr)-1] + "\n\n" + pre
 
 			# Add the content of the info file to the readme and append the post
 			for line in open(os.path.join(root, f), 'rw').readlines():
+				for x in farr:
+					if x in line:
+						subs = '['+x+']'+'(./'+x+')'
+						line = string.replace(line,x,subs)
 				readme += "> " + line
 				if line not in ('\n','\r\n'):
 					readme+='> \n'
