@@ -74,7 +74,7 @@ for root, dirs, files in os.walk(args.ctfdir):
 			farr = []
 			for fr,fd,ff in os.walk(root):
 				for fff in ff:
-					if fff in ('info','README.md'): continue
+					if fff in (args.info,'README.md'): continue
 					farr.append(fff)
 
 			# Create the header of the readme with the directory name as the challenge name
