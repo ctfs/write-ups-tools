@@ -13,9 +13,8 @@ args = parser.parse_args()
 #	Postscript:		Contains Local and External Writeups
 #
 head = '# ' + args.ctfname + ' 2015: '
-pre = ''
-pre += '**Category:** \n'
-pre += '**Points:** \n'
+#pre = '**Category:** \n'
+pre = '**Points:** \n'
 pre += '**Solves:** \n'
 pre += '**Description:**\n\n'
 post = """
@@ -78,7 +77,7 @@ for root, dirs, files in os.walk(args.ctfdir):
 					farr.append(fff)
 
 			# Create the header of the readme with the directory name as the challenge name
-			readme = head + rootarr[len(rootarr)-1] + "\n\n" + pre
+			readme = head + rootarr[len(rootarr)-1] + "\n\n" + '**Category:** ' + rootarr[1].title() + '\n' + pre
 
 			# Add the content of the info file to the readme and append the post
 			for line in open(os.path.join(root, f), 'rw').readlines():
