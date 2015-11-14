@@ -88,6 +88,7 @@ for root, dirs, files in os.walk(args.ctfdir):
 				readme += "> " + line
 				if line not in ('\n','\r\n'):
 					readme+='> \n'
+			if readme[-3:]=='> \n': readme=readme[:-3]
 			readme += post
 
 			# Add the task reference to the root README.md
