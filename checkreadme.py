@@ -5,13 +5,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('ctfdir', type=str, help='Directory containing all tasks and descriptions, e.g. example-ctf-2015/')
 args = parser.parse_args()
 
-# Define components of each challenge README.md:
-#	Header:			Defines CTF Name and Year
-#	Preamble:		Defines Categroy, Points, #Solves, Description
-#	Postscript:		Contains Local and External Writeups
-#
 # os.walk returns: dirpath (args.ctfdir), dirnames, filenames
-# For each challenge directory, create a README.md and add files >10Mb to .gitignore
 missing=external=completed=''
 for root, dirs, files in os.walk(args.ctfdir):
 	# Get the ctf directory name, challenge type and challenge name in an array
