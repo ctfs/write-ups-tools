@@ -42,8 +42,8 @@ readme+=completed
 readme+='\n## External write-ups only\n\n'
 if external=='': external='* none yet\n'
 readme+=external
-readme+='\n## Missing write-ups\n\n'
-if missing=='': missing='* none yet'
+readme+='\n## Missing write-ups'
+if missing!='': readme+='\n\n'
 if missing[-1:]=='\n': missing=missing[:-1]
 if orig[-1:]=='\n': orig=orig[:-1]
 readme+=missing
