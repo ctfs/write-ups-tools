@@ -31,7 +31,7 @@ post = """
 # Define components of each CTF root README.md:
 #	RootHeader:		Defines CTF Name
 #	RootPreamble:	Contains Link to CTF, scoreboards (external and local), Completed Writeups, External Writeups and Missing Writeups
-roothead = '# ' + args.ctfname + ' CTF write-ups'
+roothead = '# ' + args.ctfname + ' write-ups'
 rootpre = roothead + '\n'
 rootpre += """
 * <TODO>
