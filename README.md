@@ -13,3 +13,5 @@ Use `genctf.py` to generate a CTF write-up skeleton.
 * Move the CTF directory to the `write-ups-$YEAR` repo, making sure that it does not already exist, and make a pull request
 
 Use `getscores.py` to generate the scoreboard for a CTF by providing a ctftime link.
+
+Use `checkreadme.py` to update the root README.md of a given CTF directory.
