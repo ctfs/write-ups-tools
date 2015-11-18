@@ -1,4 +1,4 @@
-import argparse, os, string, sys
+import argparse, os, re, string, sys
 
 # Parse all parameters
 parser = argparse.ArgumentParser()
@@ -85,6 +85,13 @@ for root, dirs, files in os.walk(args.ctfdir):
 					if x in line:
 						subs = '['+x+']'+'(./'+x+')'
 						line = string.replace(line,x,subs)
+				# http://stackoverflow.com/questions/6883049/regex-to-find-urls-in-string-in-python
+				# Very inefficient, but works for now :)
+				urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', line)
+				if len(urls)!=0:
+					for x in urls:
+						# TODO: If url is in the form <url>, don't append more brackets...
+						line = string.replace(line,x,"<"+x+">")
 				readme += "> " + line
 				if line not in ('\n','\r\n'):
 					readme+='> \n'
