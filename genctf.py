@@ -110,4 +110,4 @@ for root, dirs, files in os.walk(args.ctfdir):
 			# Write taskref + / + filename (e.g. web/task1/bigfile.iso) to ctf-2015/.gitignore, if its size is >10MB
 			fname = taskref + '/' + f
 			if os.stat(os.path.join(root,f)).st_size > 10485760:
-				gitignore.write(fname)
+				gitignore.write(fname+'\n')
