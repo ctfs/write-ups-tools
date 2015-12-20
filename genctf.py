@@ -12,7 +12,7 @@ args = parser.parse_args()
 #	Preamble:		Defines Categroy, Points, #Solves, Description
 #	Postscript:		Contains Local and External Writeups
 #
-head = '# ' + args.ctfname + ' :'
+head = '# ' + args.ctfname + ' : '
 #pre = '**Category:** \n'
 pre = '**Points:** \n'
 pre += '**Solves:** \n'
