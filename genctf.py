@@ -37,7 +37,7 @@ rootpre += """
 * <TODO>
 * [Scoreboard](TODO) or [local alternative](TODOLOCAL)
 
-## Repo-local write-ups
+## Completed write-ups
 
 * none yet
 
